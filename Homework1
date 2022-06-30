@@ -1,0 +1,92 @@
+import Foundation
+
+
+protocol HomeworkService {
+    
+    // Функция деления с остатком, должна вернуть в первой части результат деления, во второй части остаток. СДЕЛАНО
+    func divideWithRemainder(_ x: Int, by y: Int) -> (Int, Int)
+
+    // Функция должна вернуть числа фибоначчи.СДЕЛАНО
+    func fibonacci(n: Int) -> [Int]
+
+
+    // Функция должна выполнить сортировку пузырьком.СДЕЛАНО
+    func sort(rawArray: [Int]) -> [Int]
+
+    // Функция должна преобразовать массив строк в массив первых символов строки.
+    func firstLetter(strings: [String]) -> [Character]
+
+    // Функция должна отфильтровать массив по условию, которое приходит в параметре `condition`. (Нельзя юзать `filter` у `Array`)
+    func filter(array: [Int], condition: ((Int) -> Bool)) -> [Int]
+}
+
+struct Homework: HomeworkService{
+    let x = 5
+    let y = 4
+
+    func divideWithRemainder(_ x: Int, by y: Int) -> (Int, Int){
+       return (x / y , x % y)
+    }
+
+    
+    func fibonacci(n: Int) -> [Int]{
+        assert(n > 1)
+
+        var array = [0, 1]
+
+        while array.count < n {
+            array.append(array[array.count - 1] + array[array.count - 2])
+        }
+
+    return array
+    }
+    
+    func sort(rawArray: [Int]) -> [Int]{
+        var dataSet = rawArray
+        let last_position = dataSet.count - 1
+        var swap = true
+        while swap == true {
+            swap = false
+            for i in 0..<last_position {
+                if dataSet[i] > dataSet[i + 1] {
+                    let temp = dataSet [i + 1]
+                    dataSet [i + 1] = dataSet[i]
+                    dataSet[i] = temp
+                    
+                    swap = true
+                }
+            }
+        }
+    return dataSet
+    }
+
+    func firstLetter(strings: [String]) -> [Character]{
+        let result = strings.split(separator: " ")
+        var letterArray = [Character]()
+        for string in result {
+            letterArray.append(string.characters.first!)
+        }
+    return letterArray
+    }
+
+
+    func method (number: (Int)) -> Bool {
+        return number % 2 == 0
+    }
+    let array = [1, 2, 3, 4]
+
+    func filter(array: [Int], condition: ((Int) -> Bool)) -> [Int]{
+        let array = [1, 2, 3, 4]
+        let filterArray = filter(array: array, condition: method) 
+        return filterArray
+        
+        // var dad = array
+        // let last_position = dad.count - 1
+        // for i in 0...last_position{
+        //     var num = array[i]
+        //     var resurt = condition(num) 
+        //     array.sorted(by: { array[i] > array[i+1] })
+        // }
+        // return array
+    }
+}
