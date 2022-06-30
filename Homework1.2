@@ -1,0 +1,183 @@
+import os
+
+class Human{
+    var name: String 
+    var surname: String
+    var readerticket: String 
+
+    init(name: String, readertivket: String, surname: String){
+        self.name = name
+        self.surname = surname
+        self.readerticket = readerticket
+    }
+    func getPersonInfo() -> String {
+            return "Name: \(self.name); Surname: \(self.surname)"
+        }
+    
+    override func getPersonInfo() -> String {
+        return super.getPersonInfo() + ";" + "Number of books a user has: \(numbOfBooks); UserCard: \(String(describing: userCard))"
+    }
+}
+
+class Worker: Human{
+    var seniority: Int
+    var position: LibraryPositions
+    
+    init(seniority: Int, position: LibraryPositions){
+        self.seniority = seniority
+        self.position = position
+        
+        super.init(name: name, surname: surname)
+    }
+    
+    override func getPersonInfo() -> String {
+        return super.getPersonInfo() + ";" + "Seniority: \(seniority); Librarian Position: \(position)"
+    }
+}
+
+
+class Book: Human, DecommissionedBooks{
+    var nameBook: String 
+    var autorBook: String
+    var numbOfBooks: Int 
+
+    init(nameBook: String, autorBook: String, numbOfBooks: Int){
+        self.nameBook = nameBook
+        self.autorBook = autorBook
+        self.numbOfBooks = numbOfBooks
+    }
+    
+    func IssueABook() {
+        if flag = true{
+            print("\(name) \(surname) wants to take a book \(nameBook) author \(autorBook)")
+        } else {
+            print("I'm sorry, but you won't be able to take this book \(nameBook ), it's being written off")
+        }
+    }
+    
+    func TakeBook() -> Int {
+        if readerticket != nil {
+            numbOfBooks += 1
+        }
+        else {
+            func GetCard() -> Int {
+                if readerticket == nil {
+                    readerticket = Int.random(in: 1240342...230494493)
+                }
+                return readerticket!
+            }
+        }
+        return numbOfBooks
+    }
+}
+
+class WorkSchedule: TechnicalDays{
+    var beginning:Int 
+    var end: Int 
+    var work: Bool
+
+    init(beginning: Int, end: Int){
+        self.beginning = beginning
+        self.end = end 
+    }
+
+     func WorkLibrary() -> Bool{
+        if flag == true{
+            work = true
+        }
+        else{
+            work = false
+        }
+        return work
+    }
+
+}
+
+class TechnicalDays{
+    var day: Int 
+    var flag: Bool
+
+    init(day: Int, flag: Bool){
+        self.day = day
+        self.flag = flag
+    }
+}
+
+class DecommissionedBooks{
+    var name: String 
+    var autor: String 
+    var flag: Bool
+
+    init(name: String, autor: String, flag: Bool){
+        self.name = name
+        self.autor = autor
+        self.flag = flag
+    }
+}
+
+enum Category {
+    case detective
+    case sport
+    case scienceFiction
+    case classic
+    case psychology
+    case history
+}
+enum LibraryPositions {
+    case director
+    case assistantDirector
+    case headLibrarian
+    case Librarian
+    case editor
+    case designer
+}
+
+protocol Visiting{
+    var countVisit: Int {get}
+    func Visit()
+}
+protocol InLibrary{
+    var inlibrary: Bool {get}
+    func InLibrary()
+}
+
+struct Books: Book {
+    var inlibrary: Bool
+    
+    func InLibrary() {
+        if inlibrary == true{
+            print("\(bookNumber) in Library")
+        }
+        else{
+            print("\(bookNumber) not in Library")
+        }
+    }
+    
+    var bookNumber: Int
+    var author: String?
+    var year: Int
+    var category: Category
+}
+
+struct Cafe{
+    var cafe: Bool 
+    var title: String
+
+    func InLibrary() {
+        if cafe == true{
+            print("\(title) in Library")
+        }
+        else{
+            print("\(title) not in Library")
+        }
+    }
+}
+
+var worker = Worker(countVisit: 5,name: "Name1",surname: "Surname1", seniority: 3, position: LibraryPositions.headLibrarian)
+worker.getPersonInfo()
+
+var books = Book(flag: true, bookNumber: 4, category: Category.psychology)
+var cafe = Cafe(cafe: true)
+
+
+}
