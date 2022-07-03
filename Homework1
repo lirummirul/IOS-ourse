@@ -76,17 +76,12 @@ struct Homework: HomeworkService{
     let array = [1, 2, 3, 4]
 
     func filter(array: [Int], condition: ((Int) -> Bool)) -> [Int]{
-        let array = [1, 2, 3, 4]
-        let filterArray = filter(array: array, condition: method) 
-        return filterArray
-        
-        // var dad = array
-        // let last_position = dad.count - 1
-        // for i in 0...last_position{
-        //     var num = array[i]
-        //     var resurt = condition(num) 
-        //     array.sorted(by: { array[i] > array[i+1] })
-        // }
-        // return array
+        var newArray: [Int] = Array()
+        for i in 0..<array.count {
+            if condition(array[i]) {
+                newArray.append(array[i])
+            }
+        }
+        return newArray
     }
 }
